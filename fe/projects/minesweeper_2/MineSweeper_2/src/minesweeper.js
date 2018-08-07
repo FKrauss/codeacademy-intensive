@@ -22,28 +22,40 @@ const generatePlayerBoard = (numRows, numCols) =>{
 
 
 
-printBoard(generatePlayerBoard(5, 7));
 
 const generateBombBoard = (numRows, numCols, numBombs) => {
-	let bombBoard = []
-	for (let i = 0 ; i < numRows; i++){
-		let row = [];
 
-		for(let j = 0 ; j < numCols; j++){
-			row.push(' ');
-		}
-		bombBoard.push(row);
-	}
-	// add the bombs
-	for (let i = 0; i < numBombs; i++) {
+let bombBoard = generatePlayerBoard(numRows,numCols);
+
+	// add the bombs, no control for placing them in the same place
+	let numOfBombsPlaced = 0
+	while (numOfBombsPlaced < numBombs) {
 
 		let bombCol = Math.floor((Math.random() * numCols));
 		let bombRow = Math.floor((Math.random() * numRows));
-		bombBoard[bombRow][bombCol] = "B";
+		if (bombBoard[bombRow][bombCol] === " ") { 
+			bombBoard[bombRow][bombCol] = "B";
+			numOfBombsPlaced += 1;
+		}
 		
 	}
-	return bombBoard
+
+	return bombBoard;
+
+};
+
+const getNumberOfNeighborBombs = (x, y, board) => {
+let numOfBombsAround = 0
+
+
 
 }
 
-printBoard(generateBombBoard(5, 7, 5));
+
+
+
+// main execution piece
+console.log("Player Board: ");
+printBoard(generatePlayerBoard(3, 4));
+console.log("Bomb Board: ");
+printBoard(generateBombBoard(8, 10, 10));
